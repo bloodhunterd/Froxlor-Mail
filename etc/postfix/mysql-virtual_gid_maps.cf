@@ -1,0 +1,6 @@
+user = ${FRX_DB_USER}
+password = ${FRX_DB_PASSWORD}
+dbname = ${FRX_DB_NAME}
+expansion_limit = 1
+hosts = ${FRX_DB_HOST}
+query = SELECT gid FROM mail_users WHERE email = '%s'

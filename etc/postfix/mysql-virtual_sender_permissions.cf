@@ -1,0 +1,5 @@
+user = ${FRX_DB_USER}
+password = ${FRX_DB_PASSWORD}
+dbname = ${FRX_DB_NAME}
+hosts = ${FRX_DB_HOST}
+query = SELECT DISTINCT username FROM mail_users WHERE email in ((SELECT mail_virtual.email_full FROM mail_virtual WHERE mail_virtual.email = '%s' UNION SELECT mail_virtual.destination FROM mail_virtual WHERE mail_virtual.email = '%s'));

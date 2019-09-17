@@ -1,0 +1,118 @@
+FROM debian:stable-slim
+
+# Directories
+ENV PF_DIR=/etc/postfix
+ENV DC_DIR=/etc/dovecot
+ENV SA_DIR=/etc/spamassassin
+ENV FRX_MAIL_DIR=/var/customers/mail
+
+# Time and location
+ENV TZ=Europe/Berlin
+ENV LOCALE="de_DE.UTF-8 UTF-8"
+
+# Mail
+ENV ROOT_ALIAS=root@example.com
+
+# Froxlor
+ENV FRX_DB_HOST=localhost
+ENV FRX_DB_NAME=froxlor
+ENV FRX_DB_USER=froxlor
+ENV FRX_DB_PASSWORD=
+
+# Postfix
+ENV PF_MYDOMAIN=example.com
+
+# Dovecot
+ENV DC_POSTMASTER=postmaster@example.com
+
+# SpamAssassin
+ENV SA_REPORT_SAFE=0
+ENV SA_TRUSTED_NETWORKS=127.0.0.1
+ENV SA_REQUIRED_SCORE=2.0
+
+# Postfix
+EXPOSE 25
+EXPOSE 465
+
+# Dovecot
+EXPOSE 110
+EXPOSE 143
+EXPOSE 993
+EXPOSE 995
+EXPOSE 4190
+
+# Pre-seeding for Postfix installation
+RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections && \
+	echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections && \
+	echo "opendmarc opendmarc/main_mailer_type string no" | debconf-set-selections
+
+# Update and upgrade packages
+RUN apt-get update && apt-get upgrade -y --no-install-recommends
+
+# Install packages
+RUN apt-get install -y --no-install-recommends \
+	apt-utils \
+	gettext-base \
+    locales \
+    logrotate \
+    ca-certificates \
+    unattended-upgrades \
+    apt-listchanges \
+    syslog-ng \
+    cron
+
+# Install Postfix
+RUN apt-get install -y --no-install-recommends \
+    postfix \
+    postfix-mysql
+
+# Configure Postfix
+COPY .${PF_DIR} ${PF_DIR}/
+COPY ./etc/aliases /etc/aliases
+
+# Install Dovecot
+RUN apt-get install -y --no-install-recommends \
+    dovecot-imapd \
+    dovecot-pop3d \
+    dovecot-mysql \
+    dovecot-managesieved \
+    dovecot-sieve
+
+# Configure Dovecot
+COPY .${DC_DIR} ${DC_DIR}/
+
+# Create mail user and group
+RUN groupadd -g 2000 vmail && useradd -u 2000 -g vmail vmail
+
+# Create folders
+RUN mkdir -p ${FRX_MAIL_DIR} && \
+    mkdir -p /var/log/dovecot && \
+    mkdir -p /var/log/postfix && \
+    mkdir -p /var/spool/postfix/etc/pam.d && \
+	mkdir -p /var/spool/postfix/var/run/mysqld
+
+# Set rights
+RUN chown -R 2000:2000 ${FRX_MAIL_DIR} && \
+	chmod -R 0750 ${FRX_MAIL_DIR}
+
+# Install SpamAssassin
+RUN apt-get install -y --no-install-recommends \
+    spamassassin \
+    spamc
+
+# Configure SpamAssassin
+COPY .${SA_DIR}/local.cf ${SA_DIR}/
+
+# Install Postgrey
+RUN apt-get install -y --no-install-recommends \
+    postgrey
+
+# Configure Postgrey
+COPY ./etc/default/postgrey /etc/default/
+
+# Configure LogRotate
+COPY ./etc/logrotate.d /etc/logrotate.d/
+
+COPY ./start.sh /start.sh
+
+ENTRYPOINT ["bash", "/start.sh"]
