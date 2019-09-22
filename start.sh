@@ -9,9 +9,12 @@ echo "${LOCALE}" >> /etc/locale.gen
 locale-gen
 
 # Get config files
-r[0]=$(find ${PF_DIR} -name '*.cf')
-r[1]=$(find ${DC_DIR} -name '*.conf*')
-r[2]=$(find ${SA_DIR} -name '*.cf')
+r=()
+r+=("$(find ${POSTFIX_DIR} -type f -name '*.cf')")
+r+=("$(find ${DOVECOT_DIR} -type f -name '*.conf*')")
+r+=("$(find ${SPAMASSASSIN_DIR} -type f -name '*.cf')")
+r+=("$(find ${POSTGREY_DIR} -type f -name 'postgrey')")
+r+=("$(find ${CRON_DAILY_DIR} -type f)")
 
 # Replace environment vars
 for d in "${r[@]}"
@@ -49,6 +52,9 @@ service spamassassin start
 
 # Start Postgrey
 service postgrey start
+
+# Start OpenDKIM
+service opendkim start
 
 # Start Postfix
 service postfix start

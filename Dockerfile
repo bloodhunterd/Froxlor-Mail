@@ -1,10 +1,14 @@
 FROM debian:stable-slim
 
 # Directories
-ENV PF_DIR=/etc/postfix
-ENV DC_DIR=/etc/dovecot
-ENV SA_DIR=/etc/spamassassin
 ENV FRX_MAIL_DIR=/var/customers/mail
+ENV POSTFIX_DIR=/etc/postfix
+ENV POSTFIX_SOCK_DIR=/var/spool/postfix
+ENV DOVECOT_DIR=/etc/dovecot
+ENV SPAMASSASSIN_DIR=/etc/spamassassin
+ENV POSTGREY_DIR=/etc/default
+ENV CRON_DAILY_DIR=/etc/cron.daily
+ENV LOG_DIR=/var/log
 
 # Time and location
 ENV TZ=Europe/Berlin
@@ -12,6 +16,8 @@ ENV LOCALE="de_DE.UTF-8 UTF-8"
 
 # Mail
 ENV ROOT_ALIAS=root@example.com
+ENV DELETE_TRASH_IN_DAYS=30
+ENV DELETE_SPAM_IN_DAYS=60
 
 # Froxlor
 ENV FRX_DB_HOST=localhost
@@ -20,20 +26,19 @@ ENV FRX_DB_USER=froxlor
 ENV FRX_DB_PASSWORD=
 
 # Postfix
-ENV PF_MYDOMAIN=example.com
-
+ENV MAIL_DOMAIN=example.com
 # Dovecot
-ENV DC_POSTMASTER=postmaster@example.com
-
+ENV POSTMASTER_ADDRESS=postmaster@example.com
 # SpamAssassin
-ENV SA_REPORT_SAFE=0
-ENV SA_TRUSTED_NETWORKS=127.0.0.1
-ENV SA_REQUIRED_SCORE=2.0
+ENV SPAM_REPORT_SAFE="0"
+ENV SPAM_TRUSTED_NETWORKS=127.0.0.1
+ENV SPAM_REQUIRED_SCORE=3.0
+# Postgrey
+ENV SPAM_DELAY=120
 
 # Postfix
 EXPOSE 25
 EXPOSE 465
-
 # Dovecot
 EXPOSE 110
 EXPOSE 143
@@ -67,7 +72,7 @@ RUN apt-get install -y --no-install-recommends \
     postfix-mysql
 
 # Configure Postfix
-COPY .${PF_DIR} ${PF_DIR}/
+COPY .${POSTFIX_DIR} ${POSTFIX_DIR}/
 COPY ./etc/aliases /etc/aliases
 
 # Install Dovecot
@@ -79,7 +84,7 @@ RUN apt-get install -y --no-install-recommends \
     dovecot-sieve
 
 # Configure Dovecot
-COPY .${DC_DIR} ${DC_DIR}/
+COPY .${DOVECOT_DIR} ${DOVECOT_DIR}/
 
 # Create mail user and group
 RUN groupadd -g 2000 vmail && useradd -u 2000 -g vmail vmail
@@ -101,7 +106,7 @@ RUN apt-get install -y --no-install-recommends \
     spamc
 
 # Configure SpamAssassin
-COPY .${SA_DIR}/local.cf ${SA_DIR}/
+COPY .${SPAMASSASSIN_DIR}/local.cf ${SPAMASSASSIN_DIR}/
 
 # Install Postgrey
 RUN apt-get install -y --no-install-recommends \
@@ -110,8 +115,22 @@ RUN apt-get install -y --no-install-recommends \
 # Configure Postgrey
 COPY ./etc/default/postgrey /etc/default/
 
-# Configure LogRotate
-COPY ./etc/logrotate.d /etc/logrotate.d/
+RUN mkdir -p ${POSTFIX_SOCK_DIR}/postgrey
+
+# Install OpenDKIM
+RUN apt-get install -y --no-install-recommends \
+    opendkim \
+    opendkim-tools \
+    procps
+
+# Configure OpenDKIM
+COPY ./etc/opendkim.conf /etc/
+
+RUN mkdir -p ${POSTFIX_SOCK_DIR}/var/run/opendkim && \
+    chown -R opendkim:postfix ${POSTFIX_SOCK_DIR}/var/run/opendkim
+
+# Configure Cron
+COPY ./etc/cron.daily /etc/cron.daily/
 
 COPY ./start.sh /start.sh
 

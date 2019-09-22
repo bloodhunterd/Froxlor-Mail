@@ -15,13 +15,13 @@
 #   Save spam messages as a message/rfc822 MIME attachment instead of
 #   modifying the original message (0: off, 2: use text/plain instead)
 #
-report_safe ${SA_REPORT_SAFE}
+report_safe ${SPAM_REPORT_SAFE}
 
 
 #   Set which networks or hosts are considered 'trusted' by your mail
 #   server (i.e. not spammers)
 #
-trusted_networks ${SA_TRUSTED_NETWORKS}
+trusted_networks ${SPAM_TRUSTED_NETWORKS}
 
 
 #   Set file-locking method (flock is not safe over NFS, but is faster)
@@ -31,7 +31,7 @@ trusted_networks ${SA_TRUSTED_NETWORKS}
 
 #   Set the threshold at which a message is considered spam (default: 5.0)
 #
-required_score ${SA_REQUIRED_SCORE}
+required_score ${SPAM_REQUIRED_SCORE}
 
 
 #   Use Bayesian classifier (default: 1)

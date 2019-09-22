@@ -89,7 +89,7 @@ myhostname = mail.$mydomain
 # depending on your dns configuration, please check yourself.
 
 # FQDN from Froxlor
-mydomain = ${PF_MYDOMAIN}
+mydomain = ${MAIL_DOMAIN}
 
 # SENDING MAIL
 # 
