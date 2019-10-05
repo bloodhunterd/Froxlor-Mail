@@ -53,9 +53,6 @@ service spamassassin start
 # Start Postgrey
 service postgrey start
 
-# Start OpenDKIM
-service opendkim start
-
 # Start Postfix
 service postfix start
 

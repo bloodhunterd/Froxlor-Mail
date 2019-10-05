@@ -48,8 +48,7 @@ EXPOSE 4190
 
 # Pre-seeding for Postfix installation
 RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections && \
-	echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections && \
-	echo "opendmarc opendmarc/main_mailer_type string no" | debconf-set-selections
+	echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections
 
 # Update and upgrade packages
 RUN apt-get update && apt-get upgrade -y --no-install-recommends
@@ -119,18 +118,6 @@ RUN apt-get install -y --no-install-recommends \
 COPY ./etc/default/postgrey /etc/default/
 
 RUN mkdir -p ${POSTFIX_SOCK_DIR}/postgrey
-
-# Install OpenDKIM
-RUN apt-get install -y --no-install-recommends \
-    opendkim \
-    opendkim-tools \
-    procps
-
-# Configure OpenDKIM
-COPY ./etc/opendkim.conf /etc/
-
-RUN mkdir -p ${POSTFIX_SOCK_DIR}/var/run/opendkim && \
-    chown -R opendkim:postfix ${POSTFIX_SOCK_DIR}/var/run/opendkim
 
 # Configure Cron
 COPY ./etc/cron.daily /etc/cron.daily/
