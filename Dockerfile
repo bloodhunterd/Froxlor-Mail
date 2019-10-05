@@ -90,11 +90,14 @@ COPY .${DOVECOT_DIR} ${DOVECOT_DIR}/
 RUN groupadd -g 2000 vmail && useradd -u 2000 -g vmail vmail
 
 # Create folders
-RUN mkdir -p ${FRX_MAIL_DIR} && \
+RUN mkdir -p ${FRX_MAIL_DIR}/.sieve/.before && \
     mkdir -p /var/log/dovecot && \
     mkdir -p /var/log/postfix && \
     mkdir -p /var/spool/postfix/etc/pam.d && \
 	mkdir -p /var/spool/postfix/var/run/mysqld
+
+# Configure Sieve
+COPY .${FRX_MAIL_DIR}/.sieve/.before ${FRX_MAIL_DIR}/.sieve/.before/
 
 # Set rights
 RUN chown -R 2000:2000 ${FRX_MAIL_DIR} && \
