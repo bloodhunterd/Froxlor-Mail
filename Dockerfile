@@ -76,11 +76,11 @@ COPY ./etc/aliases /etc/aliases
 
 # Install Dovecot
 RUN apt-get install -y --no-install-recommends \
+    dovecot-mysql \
     dovecot-imapd \
     dovecot-pop3d \
-    dovecot-mysql \
-    dovecot-managesieved \
-    dovecot-sieve
+    dovecot-sieve \
+    dovecot-managesieved
 
 # Configure Dovecot
 COPY .${DOVECOT_DIR} ${DOVECOT_DIR}/
