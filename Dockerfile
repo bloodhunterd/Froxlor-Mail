@@ -12,7 +12,7 @@ ENV LOG_DIR=/var/log
 
 # Time and location
 ENV TZ=Europe/Berlin
-ENV LOCALE="de_DE.UTF-8 UTF-8"
+ENV LOCALE="de_DE.UTF-8"
 
 # Mail
 ENV ROOT_ALIAS=root@example.com

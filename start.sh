@@ -4,9 +4,8 @@
 ln -snf "/usr/share/zoneinfo/${TZ}" etc/localtime
 echo "${TZ}" > /etc/timezone
 
-# Set locales
-echo "${LOCALE}" >> /etc/locale.gen
-locale-gen
+# Set language
+locale-gen "${LOCALE}" && update-locale LANG="${LOCALE}"
 
 # Get config files
 r=()
@@ -38,6 +37,10 @@ envsubst < /etc/aliases.tmp > /etc/aliases
 rm /etc/aliases.tmp
 newaliases
 
+# Fix "Cron in Docker" hardlink count problem
+# See https://unix.stackexchange.com/questions/453006/getting-cron-to-work-on-docker
+touch /etc/crontab /etc/cron.*/*
+
 # Start logging
 service syslog-ng start
 
@@ -52,6 +55,9 @@ service spamassassin start
 
 # Start Postgrey
 service postgrey start
+
+# Grace time to prevent SASL authentication method error
+sleep 10
 
 # Start Postfix
 service postfix start
