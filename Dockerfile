@@ -33,8 +33,6 @@ ENV POSTMASTER_ADDRESS=postmaster@example.com
 ENV SPAM_REPORT_SAFE=0
 ENV SPAM_TRUSTED_NETWORKS=127.0.0.1
 ENV SPAM_REQUIRED_SCORE=3.0
-# Postgrey
-ENV SPAM_DELAY=120
 
 # Postfix
 EXPOSE 25
@@ -109,15 +107,6 @@ RUN apt-get install -y --no-install-recommends \
 
 # Configure SpamAssassin
 COPY .${SPAMASSASSIN_DIR}/local.cf ${SPAMASSASSIN_DIR}/
-
-# Install Postgrey
-RUN apt-get install -y --no-install-recommends \
-    postgrey
-
-# Configure Postgrey
-COPY ./etc/default/postgrey /etc/default/
-
-RUN mkdir -p ${POSTFIX_SOCK_DIR}/postgrey
 
 # Configure Cron
 COPY ./etc/cron.daily /etc/cron.daily/

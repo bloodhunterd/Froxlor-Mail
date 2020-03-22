@@ -1,19 +1,23 @@
-# Froxlor Mail Docker
+[![Release](https://img.shields.io/github/v/release/bloodhunterd/froxlor-mail-docker?include_prereleases&style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/releases)
+[![Docker Build](https://img.shields.io/docker/cloud/build/bloodhunterd/froxlor-mail?style=for-the-badge)](https://hub.docker.com/r/bloodhunterd/froxlor-mail)
+[![License](https://img.shields.io/github/license/bloodhunterd/froxlor-mail-docker?style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/LICENSE)
 
-Dockerized Mail Server for Froxlor
+# Froxlor Mail
 
-## Getting Started
+Docker Image of Froxlor Mail Server.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-See deployment for notes on how to deploy the project on a live system.
+## Configuration
 
-### Prerequisites
+### Docker environment
 
-**TBA**
+| ENV | Values¹ | Description
+|--- |--- |---
 
-### Installing
+¹ *Possible values are separated by a slash or a range is indicated by a dash.*
 
-**TBA**
+## Update
+
+Please note the [changelog](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/CHANGELOG.md) to check for configuration changes before updating.
 
 ## Build With
 

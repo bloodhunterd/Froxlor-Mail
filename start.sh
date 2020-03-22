@@ -12,7 +12,6 @@ r=()
 r+=("$(find ${POSTFIX_DIR} -type f -name '*.cf')")
 r+=("$(find ${DOVECOT_DIR} -type f -name '*.conf*')")
 r+=("$(find ${SPAMASSASSIN_DIR} -type f -name '*.cf')")
-r+=("$(find ${POSTGREY_DIR} -type f -name 'postgrey')")
 r+=("$(find ${CRON_DAILY_DIR} -type f)")
 
 # Replace environment vars
@@ -52,9 +51,6 @@ service dovecot start
 
 # Start SpamAssassin
 service spamassassin start
-
-# Start Postgrey
-service postgrey start
 
 # Grace time to prevent SASL authentication method error
 sleep 10
