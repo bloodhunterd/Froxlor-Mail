@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## <a name="v0-2-0"></a> [0.2.0](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.2.0) - 22.03.2020
+
+### Features
+* Postgrey removed due own Postgrey Docker image
+
+### Fixes
+* None
+
 ## <a name="v0-1-0"></a> [0.1.0](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.1.0) - 17.02.2020
 
 ### Features
