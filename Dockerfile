@@ -3,10 +3,8 @@ FROM debian:stable-slim
 # Directories
 ENV FRX_MAIL_DIR=/var/customers/mail
 ENV POSTFIX_DIR=/etc/postfix
-ENV POSTFIX_SOCK_DIR=/var/spool/postfix
 ENV DOVECOT_DIR=/etc/dovecot
 ENV SPAMASSASSIN_DIR=/etc/spamassassin
-ENV POSTGREY_DIR=/etc/default
 ENV CRON_DAILY_DIR=/etc/cron.daily
 ENV LOG_DIR=/var/log
 
