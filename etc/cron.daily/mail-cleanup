@@ -1,7 +1,0 @@
-#!/bin/bash
-
-# Delete all mails from TRASH folders older than ${C_DELETE_TRASH} days
-find ${FRX_MAIL_DIR}/*/*/*/.Trash/cur/ -type f -mtime +${DELETE_TRASH_IN_DAYS} -exec rm {} \;
-
-# Delete all mails from SPAM folders older than ${C_DELETE_SPAM} days
-find ${FRX_MAIL_DIR}/*/*/*/.Spam/cur/ -type f -mtime +${DELETE_SPAM_IN_DAYS} -exec rm {} \;

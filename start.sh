@@ -12,7 +12,7 @@ r=()
 r+=("$(find ${POSTFIX_DIR} -type f -name '*.cf')")
 r+=("$(find ${DOVECOT_DIR} -type f -name '*.conf*')")
 r+=("$(find ${SPAMASSASSIN_DIR} -type f -name '*.cf')")
-r+=("$(find ${CRON_DAILY_DIR} -type f)")
+r+=("$(find ${SRV_DIR} -type f)")
 
 # Replace environment vars
 for d in "${r[@]}"
@@ -42,9 +42,6 @@ touch /etc/crontab /etc/cron.*/*
 
 # Start logging
 service syslog-ng start
-
-# Start Cron
-service cron start
 
 # Start Dovecot
 service dovecot start

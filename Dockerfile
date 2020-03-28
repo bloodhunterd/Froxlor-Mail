@@ -5,8 +5,8 @@ ENV FRX_MAIL_DIR=/var/customers/mail
 ENV POSTFIX_DIR=/etc/postfix
 ENV DOVECOT_DIR=/etc/dovecot
 ENV SPAMASSASSIN_DIR=/etc/spamassassin
-ENV CRON_DAILY_DIR=/etc/cron.daily
 ENV LOG_DIR=/var/log
+ENV SRV_DIR=/srv
 
 # Time and location
 ENV TZ=Europe/Berlin
@@ -14,8 +14,6 @@ ENV LOCALE="de_DE.UTF-8"
 
 # Mail
 ENV ROOT_ALIAS=root@example.com
-ENV DELETE_TRASH_IN_DAYS=30
-ENV DELETE_SPAM_IN_DAYS=60
 
 # Froxlor
 ENV FRX_DB_HOST=localhost
@@ -31,6 +29,10 @@ ENV POSTMASTER_ADDRESS=postmaster@example.com
 ENV SPAM_REPORT_SAFE=0
 ENV SPAM_TRUSTED_NETWORKS=127.0.0.1
 ENV SPAM_REQUIRED_SCORE=3.0
+
+# Cleanup scripts
+ENV CLEANUP_TRASH=30
+ENV CLEANUP_SPAM=60
 
 # Postfix
 EXPOSE 25
@@ -58,8 +60,7 @@ RUN apt-get install -y --no-install-recommends \
     ca-certificates \
     unattended-upgrades \
     apt-listchanges \
-    syslog-ng \
-    cron
+    syslog-ng
 
 # Install Postfix
 RUN apt-get install -y --no-install-recommends \
@@ -106,8 +107,8 @@ RUN apt-get install -y --no-install-recommends \
 # Configure SpamAssassin
 COPY .${SPAMASSASSIN_DIR}/local.cf ${SPAMASSASSIN_DIR}/
 
-# Configure Cron
-COPY ./etc/cron.daily /etc/cron.daily/
+# Add cleanup scripts for Trash and Spam folders
+COPY ./srv /srv/
 
 COPY ./start.sh /start.sh
 
