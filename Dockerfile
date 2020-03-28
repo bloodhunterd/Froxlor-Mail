@@ -110,6 +110,9 @@ COPY .${SPAMASSASSIN_DIR}/local.cf ${SPAMASSASSIN_DIR}/
 # Add cleanup scripts for Trash and Spam folders
 COPY ./srv /srv/
 
+# Make cleanup scripts executeable
+RUN chmod +x /srv/cleanup-*.sh
+
 COPY ./start.sh /start.sh
 
 ENTRYPOINT ["bash", "/start.sh"]
