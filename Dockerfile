@@ -4,7 +4,6 @@ FROM debian:stable-slim
 ENV FRX_MAIL_DIR=/var/customers/mail
 ENV POSTFIX_DIR=/etc/postfix
 ENV DOVECOT_DIR=/etc/dovecot
-ENV SPAMASSASSIN_DIR=/etc/spamassassin
 ENV LOG_DIR=/var/log
 ENV SRV_DIR=/srv
 
@@ -24,10 +23,6 @@ ENV FRX_DB_PASSWORD=""
 ENV MAIL_DOMAIN=example.com
 # Dovecot
 ENV POSTMASTER_ADDRESS=postmaster@example.com
-# SpamAssassin
-ENV SPAM_REPORT_SAFE=0
-ENV SPAM_TRUSTED_NETWORKS=127.0.0.1
-ENV SPAM_REQUIRED_SCORE=3.0
 
 # Cleanup scripts
 ENV CLEANUP_TRASH=30
@@ -96,14 +91,6 @@ COPY .${FRX_MAIL_DIR}/.sieve/.before ${FRX_MAIL_DIR}/.sieve/.before/
 # Set rights
 RUN chown -R 2000:2000 ${FRX_MAIL_DIR} && \
 	chmod -R 0750 ${FRX_MAIL_DIR}
-
-# Install SpamAssassin
-RUN apt-get install -y --no-install-recommends \
-    spamassassin \
-    spamc
-
-# Configure SpamAssassin
-COPY .${SPAMASSASSIN_DIR}/local.cf ${SPAMASSASSIN_DIR}/
 
 # Add cleanup scripts for Trash and Spam folders
 COPY ./srv /srv/

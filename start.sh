@@ -8,7 +8,6 @@ echo "${TZ}" > /etc/timezone
 r=()
 r+=("$(find ${POSTFIX_DIR} -type f -name '*.cf')")
 r+=("$(find ${DOVECOT_DIR} -type f -name '*.conf*')")
-r+=("$(find ${SPAMASSASSIN_DIR} -type f -name '*.cf')")
 r+=("$(find ${SRV_DIR} -type f)")
 
 # Replace environment vars
@@ -42,9 +41,6 @@ service syslog-ng start
 
 # Start Dovecot
 service dovecot start
-
-# Start SpamAssassin
-service spamassassin start
 
 # Grace time to prevent SASL authentication method error
 sleep 10
