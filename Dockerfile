@@ -8,9 +8,8 @@ ENV SPAMASSASSIN_DIR=/etc/spamassassin
 ENV LOG_DIR=/var/log
 ENV SRV_DIR=/srv
 
-# Time and location
+# Time
 ENV TZ=Europe/Berlin
-ENV LOCALE="de_DE.UTF-8"
 
 # Mail
 ENV ROOT_ALIAS=root@example.com
@@ -55,7 +54,6 @@ RUN apt-get update && apt-get upgrade -y --no-install-recommends
 RUN apt-get install -y --no-install-recommends \
 	apt-utils \
 	gettext-base \
-    locales \
     logrotate \
     ca-certificates \
     unattended-upgrades \

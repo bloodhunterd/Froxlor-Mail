@@ -4,9 +4,6 @@
 ln -snf "/usr/share/zoneinfo/${TZ}" etc/localtime
 echo "${TZ}" > /etc/timezone
 
-# Set language
-locale-gen "${LOCALE}" && update-locale LANG="${LOCALE}"
-
 # Get config files
 r=()
 r+=("$(find ${POSTFIX_DIR} -type f -name '*.cf')")
