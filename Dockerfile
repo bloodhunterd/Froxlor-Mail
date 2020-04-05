@@ -4,7 +4,6 @@ FROM debian:stable-slim
 ENV FRX_MAIL_DIR=/var/customers/mail
 ENV POSTFIX_DIR=/etc/postfix
 ENV DOVECOT_DIR=/etc/dovecot
-ENV LOG_DIR=/var/log
 ENV SRV_DIR=/srv
 
 # Time
