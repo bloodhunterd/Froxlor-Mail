@@ -32,10 +32,6 @@ envsubst < /etc/aliases.tmp > /etc/aliases
 rm /etc/aliases.tmp
 newaliases
 
-# Fix "Cron in Docker" hardlink count problem
-# See https://unix.stackexchange.com/questions/453006/getting-cron-to-work-on-docker
-touch /etc/crontab /etc/cron.*/*
-
 # Start logging
 service syslog-ng start
 
