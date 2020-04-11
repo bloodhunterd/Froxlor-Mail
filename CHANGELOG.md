@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## <a name="v0-5-0"></a> [0.5.0](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.5.0) - 11.04.2020
+
+### Features
+* None
+
+### Fixes
+* Spamc installed to use external SpamAssassin
+
 ## <a name="v0-4-0"></a> [0.4.0](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.4.0) - 30.03.2020
 
 ### Features

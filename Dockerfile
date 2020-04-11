@@ -50,6 +50,7 @@ RUN apt-get install -y --no-install-recommends \
     unattended-upgrades \
     apt-listchanges \
     syslog-ng \
+    # Prepare for SpamAssassin
     spamc
 
 # Install Postfix
