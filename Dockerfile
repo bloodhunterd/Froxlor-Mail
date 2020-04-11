@@ -49,7 +49,8 @@ RUN apt-get install -y --no-install-recommends \
     ca-certificates \
     unattended-upgrades \
     apt-listchanges \
-    syslog-ng
+    syslog-ng \
+    spamc
 
 # Install Postfix
 RUN apt-get install -y --no-install-recommends \
