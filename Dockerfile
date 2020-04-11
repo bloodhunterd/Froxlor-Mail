@@ -1,18 +1,10 @@
 FROM debian:stable-slim
 
-# Directories
-ENV FRX_MAIL_DIR=/var/customers/mail
-ENV POSTFIX_DIR=/etc/postfix
-ENV DOVECOT_DIR=/etc/dovecot
-ENV SRV_DIR=/srv
-
 # Time
 ENV TZ=Europe/Berlin
 
-# Mail
-ENV ROOT_ALIAS=root@example.com
-
 # Froxlor
+ENV FRX_MAIL_DIR=/var/customers/mail
 ENV FRX_DB_HOST=localhost
 ENV FRX_DB_NAME=froxlor
 ENV FRX_DB_USER=froxlor
@@ -20,8 +12,12 @@ ENV FRX_DB_PASSWORD=""
 
 # Postfix
 ENV MAIL_DOMAIN=example.com
+
 # Dovecot
 ENV POSTMASTER_ADDRESS=postmaster@example.com
+
+# Mail
+ENV ROOT_ALIAS=root@example.com
 
 # Cleanup scripts
 ENV CLEANUP_TRASH=30
@@ -41,10 +37,11 @@ EXPOSE 4190
 RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections && \
 	echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections
 
-# Update and upgrade packages
-RUN apt-get update && apt-get upgrade -y --no-install-recommends
+# Update sources and preinstalled packages
+RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends
 
-# Install packages
+# Install dependencies
 RUN apt-get install -y --no-install-recommends \
 	apt-utils \
 	gettext-base \
@@ -60,7 +57,7 @@ RUN apt-get install -y --no-install-recommends \
     postfix-mysql
 
 # Configure Postfix
-COPY .${POSTFIX_DIR} ${POSTFIX_DIR}/
+COPY ./etc/postfix /etc/postfix/
 COPY ./etc/aliases /etc/aliases
 
 # Install Dovecot
@@ -72,7 +69,7 @@ RUN apt-get install -y --no-install-recommends \
     dovecot-managesieved
 
 # Configure Dovecot
-COPY .${DOVECOT_DIR} ${DOVECOT_DIR}/
+COPY ./etc/dovecot /etc/dovecot/
 
 # Create mail user and group
 RUN groupadd -g 2000 vmail && useradd -u 2000 -g vmail vmail

@@ -4,14 +4,15 @@ services:
   mail:
     image: bloodhunterd/froxlor-mail
     environment:
+      - TZ: 'Europe/Berlin'
       - FRX_MAIL_DIR: '/var/customers/mail'
       - FRX_DB_HOST: localhost
       - FRX_DB_NAME: froxlor
       - FRX_DB_USER: froxlor
       - FRX_DB_PASSWORD: ''
-      - ROOT_ALIAS: 'root@example.com'
       - MAIL_DOMAIN: 'example.com'
       - POSTMASTER_ADDRESS: 'postmaster@example.com'
+      - ROOT_ALIAS: 'root@example.com'
       - CLEANUP_TRASH: 30
       - CLEANUP_SPAM: 60
     volumes:
