@@ -10,6 +10,8 @@
 #               (yes)   (yes)   (yes)   (never) (100)
 # ==========================================================================
 smtp      inet  n       -       y       -       -       smtpd
+# Enable content filter SpamAssassin to filter mails for Spam
+#  -o content_filter=spamassassin
 #smtp      inet  n       -       y       -       1       postscreen
 #smtpd     pass  -       -       y       -       -       smtpd
 #dnsblog   unix  -       -       y       -       0       dnsblog
@@ -26,6 +28,10 @@ smtp      inet  n       -       y       -       -       smtpd
 #  -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
 #  -o milter_macro_daemon_name=ORIGINATING
 #smtps     inet  n       -       y       -       -       smtpd
+# Enable content filter SpamAssassin to filter mails for Spam
+#  -o content_filter=spamassassin
+# Enable TLS wrapper mode to use SSL/TLS encryption
+#  -o smtpd_tls_wrappermode=yes
 #  -o syslog_name=postfix/smtps
 #  -o smtpd_tls_wrappermode=yes
 #  -o smtpd_sasl_auth_enable=yes
@@ -124,3 +130,9 @@ mailman   unix  -       n       n       -       -       pipe
 # Dovecot LDA
 dovecot	  unix	-	n	n	-	-	pipe
 	flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -d ${recipient}
+# SpamAssassin | Transport: Postfix -> Spamassassin -> Dovecot
+# External: -d <<host1>>,<<host2>>
+#spamass-dovecot	unix	-	n	n	-	-	pipe
+#	flags=DRhu user=vmail:vmail argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -d ${recipient}
+#spamassassin	unix	-	n	n	-	-	pipe
+#	user=vmail argv=/usr/bin/spamc -d spamassassin-container-name -f -e /usr/sbin/sendmail -oi -f ${sender} ${recipient}

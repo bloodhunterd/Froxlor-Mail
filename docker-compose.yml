@@ -4,25 +4,23 @@ services:
   mail:
     image: bloodhunterd/froxlor-mail
     environment:
-      - TZ: 'Europe/Berlin'
-      - FRX_MAIL_DIR: '/var/customers/mail'
-      - FRX_DB_HOST: localhost
-      - FRX_DB_NAME: froxlor
-      - FRX_DB_USER: froxlor
-      - FRX_DB_PASSWORD: ''
-      - MAIL_DOMAIN: 'example.com'
-      - POSTMASTER_ADDRESS: 'postmaster@example.com'
-      - ROOT_ALIAS: 'root@example.com'
-      - CLEANUP_TRASH: 30
-      - CLEANUP_SPAM: 60
+      TZ: 'Europe/Berlin'
+      FRX_MAIL_DIR: '/var/customers/mail'
+      FRX_DB_HOST: 'localhost'
+      FRX_DB_NAME: 'froxlor'
+      FRX_DB_USER: 'froxlor'
+      FRX_DB_PASSWORD: ''
+      MAIL_DOMAIN: 'example.com'
+      POSTMASTER_ADDRESS: 'postmaster@example.com'
+      ROOT_ALIAS: 'root@example.com'
+    restart: unless-stopped
+    ports:
+      - '25:25'
+      - '110:110'
+      - '143:143'
+      - '465:465'
+      - '993:993'
+      - '995:995'
+      - '4190:4190'
     volumes:
       - ./mail:/var/customers/mail/
-    ports:
-      - 25
-      - 110
-      - 143
-      - 465
-      - 993
-      - 995
-      - 4190
-    restart: unless-stopped

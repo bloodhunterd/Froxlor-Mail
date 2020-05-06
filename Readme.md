@@ -8,6 +8,8 @@ Docker Image of Froxlor Mail Server.
 
 ## Configuration
 
+See example [Docker Compose file](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/docker-compose.yml).
+
 ### Environment
 
 | ENV | Values¹ | Default | Description
@@ -31,17 +33,6 @@ Docker Image of Froxlor Mail Server.
 ```bash
 volumes:
   - ./mail/:/var/customers/mail/
-```
-
-### Scheduled tasks
-
-Add the following lines to the host [crontab](https://www.linuxwiki.de/crontab), to cleanup Trash and Spam folders automatically.
-
-```bash
-# Cleanup Spam
-0 4 * * * /usr/bin/docker exec froxlor-mail /bin/bash -c '/srv/cleanup-spam.sh'
-# Cleanup Trash
-0 4 * * * /usr/bin/docker exec froxlor-mail /bin/bash -c '/srv/cleanup-trash.sh'
 ```
 
 ## Update
