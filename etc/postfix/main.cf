@@ -539,7 +539,7 @@ mailbox_command = /usr/lib/dovecot/deliver
 #
 # For details, see "man header_checks".
 #
-#header_checks = regexp:/etc/postfix/header_checks
+header_checks = regexp:/etc/postfix/header_checks
 
 # FAST ETRN SERVICE
 #
