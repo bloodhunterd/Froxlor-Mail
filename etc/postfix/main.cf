@@ -477,7 +477,7 @@ mailbox_command = /usr/lib/dovecot/deliver
 #
 # Cyrus IMAP over LMTP. Specify ``lmtpunix      cmd="lmtpd"
 # listen="/var/imap/socket/lmtp" prefork=0'' in cyrus.conf.
-#mailbox_transport = lmtp:unix:/var/imap/socket/lmtp
+mailbox_transport = lmtp:unix:private/dovecot-lmtp
 #
 # Cyrus IMAP via command line. Uncomment the "cyrus...pipe" and
 # subsequent line in master.cf.
