@@ -16,6 +16,9 @@ ENV MAIL_DOMAIN 'example.com'
 # Dovecot
 ENV POSTMASTER_ADDRESS 'postmaster@example.com'
 
+# Log
+ENV LOG_DIR '/var/log/mail'
+
 # Mail
 ENV ROOT_ALIAS 'root@example.com'
 
@@ -79,8 +82,7 @@ RUN groupadd -g 2000 vmail && \
 
 # Create folders
 RUN mkdir -p ${FRX_MAIL_DIR}/.sieve/.before && \
-    mkdir -p /var/log/dovecot && \
-    mkdir -p /var/log/postfix && \
+	mkdir -p ${LOG_DIR} && \
     mkdir -p /var/spool/postfix/etc/pam.d && \
 	mkdir -p /var/spool/postfix/var/run/mysqld
 
@@ -89,7 +91,9 @@ COPY .${FRX_MAIL_DIR}/.sieve/.before ${FRX_MAIL_DIR}/.sieve/.before/
 
 # Set rights
 RUN chown -R 2000:2000 ${FRX_MAIL_DIR} && \
-	chmod -R 0750 ${FRX_MAIL_DIR}
+	chmod -R 0750 ${FRX_MAIL_DIR} && \
+    chown -R root:adm ${LOG_DIR} && \
+    chmod -R 0770 ${LOG_DIR}
 
 # Install SpamAssassin client
 RUN apt-get install -y --no-install-recommends \
