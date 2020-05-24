@@ -99,6 +99,9 @@ RUN apt-get install -y --no-install-recommends \
 RUN groupadd debian-spamd && \
     useradd -g debian-spamd debian-spamd
 
+# Add Logrotate scripts
+COPY ./etc/logrotate.d /etc/logrotate.d/
+
 # Add Spam and Trash cleanup scripts
 COPY ./etc/cron.d /etc/cron.d/
 

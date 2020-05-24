@@ -739,3 +739,6 @@ virtual_mailbox_limit = 0
 #smtpd_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 #smtpd_tls_loglevel = 1
 #smtpd_tls_received_header = yes
+
+# Logging
+maillog_file = /var/log/postfix/mail.log
