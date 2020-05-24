@@ -41,4 +41,4 @@ sleep 5
 
 service postfix start
 
-tail -f /var/log/postfix/mail.log
+tail -f /var/log/dovecot/mail.log
