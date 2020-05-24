@@ -16,9 +16,6 @@ ENV MAIL_DOMAIN 'example.com'
 # Dovecot
 ENV POSTMASTER_ADDRESS 'postmaster@example.com'
 
-# Log
-ENV LOG_DIR '/var/log/mail'
-
 # Mail
 ENV ROOT_ALIAS 'root@example.com'
 
@@ -82,7 +79,6 @@ RUN groupadd -g 2000 vmail && \
 
 # Create folders
 RUN mkdir -p ${FRX_MAIL_DIR}/.sieve/.before && \
-	mkdir -p ${LOG_DIR} && \
     mkdir -p /var/spool/postfix/etc/pam.d && \
 	mkdir -p /var/spool/postfix/var/run/mysqld
 
@@ -91,9 +87,7 @@ COPY .${FRX_MAIL_DIR}/.sieve/.before ${FRX_MAIL_DIR}/.sieve/.before/
 
 # Set rights
 RUN chown -R 2000:2000 ${FRX_MAIL_DIR} && \
-	chmod -R 0750 ${FRX_MAIL_DIR} && \
-    chown -R root:adm ${LOG_DIR} && \
-    chmod -R 0770 ${LOG_DIR}
+	chmod -R 0750 ${FRX_MAIL_DIR}
 
 # Install SpamAssassin client
 RUN apt-get install -y --no-install-recommends \
@@ -102,9 +96,6 @@ RUN apt-get install -y --no-install-recommends \
 # Create SpamAssassin user and group
 RUN groupadd debian-spamd && \
     useradd -g debian-spamd debian-spamd
-
-# Add Logrotate scripts
-COPY ./etc/logrotate.d /etc/logrotate.d/
 
 # Add Spam and Trash cleanup scripts
 COPY ./etc/cron.d /etc/cron.d/

@@ -9,7 +9,6 @@ r=()
 r+=("$(find /etc -type f -name 'aliases')")
 r+=("$(find /etc/postfix -type f -name '*.cf')")
 r+=("$(find /etc/dovecot -type f -name '*.conf*')")
-r+=("$(find /etc/logrotate.d -type f -name 'mail-log')")
 r+=("$(find /etc/cron.d -type f -name 'cleanup-*')")
 
 # Replace environment vars
@@ -42,4 +41,4 @@ sleep 5
 
 service postfix start
 
-tail -f /var/log/mail/mail.log
+tail -f /var/log/mail.log
