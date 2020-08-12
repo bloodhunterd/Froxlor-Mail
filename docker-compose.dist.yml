@@ -4,15 +4,15 @@ services:
   mail:
     image: bloodhunterd/froxlor-mail
     environment:
-      TZ: 'Europe/Berlin'
-      FRX_MAIL_DIR: '/var/customers/mail'
-      FRX_DB_HOST: 'localhost'
-      FRX_DB_NAME: 'froxlor'
-      FRX_DB_USER: 'froxlor'
+      TZ: Europe/Berlin
+      FRX_MAIL_DIR: /var/customers/mail
+      FRX_DB_HOST: localhost
+      FRX_DB_NAME: froxlor
+      FRX_DB_USER: froxlor
       FRX_DB_PASSWORD: ''
-      MAIL_DOMAIN: 'example.com'
-      POSTMASTER_ADDRESS: 'postmaster@example.com'
-      ROOT_ALIAS: 'root@example.com'
+      MAIL_DOMAIN: example.com
+      POSTMASTER_ADDRESS: postmaster@example.com
+      ROOT_ALIAS: root@example.com
     restart: unless-stopped
     ports:
       - '25:25'

@@ -59,7 +59,7 @@ driver = mysql
 #     option_file            - Read options from the given file instead of
 #                              the default my.cnf location
 #     option_group           - Read options from the given group (default: client)
-# 
+#
 #   You can connect to UNIX sockets by using host: host=/var/run/mysql.sock
 #   Note that currently you can't use spaces in parameters.
 #
@@ -71,7 +71,7 @@ driver = mysql
 #   connect = host=sql.example.com dbname=virtual user=virtual password=blarg
 #   connect = /etc/dovecot/authdb.sqlite
 #
-connect = host=${FRX_DB_HOST} dbname=${FRX_DB_NAME} user=${FRX_DB_USER} password=${FRX_DB_PASSWORD}
+connect = "host=${FRX_DB_HOST} dbname=${FRX_DB_NAME} user=${FRX_DB_USER} password=${FRX_DB_PASSWORD}"
 
 # Default password scheme.
 #
@@ -98,7 +98,7 @@ default_pass_scheme = CRYPT
 #   %u = entire user@domain
 #   %n = user part of user@domain
 #   %d = domain part of user@domain
-# 
+#
 # Note that these can be used only as input to SQL query. If the query outputs
 # any of these substitutions, they're not touched. Otherwise it would be
 # difficult to have eg. usernames containing '%' characters.
