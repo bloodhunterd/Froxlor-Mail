@@ -4,17 +4,18 @@
 
 # Froxlor Mail
 
-Docker Image of Froxlor Mail Server.
+Docker image for Froxlor Mail Server.
+
+*This image is meant to be used with the [Froxlor Docker](https://github.com/bloodhunterd/froxlor-docker) image.*
 
 ## Configuration
 
-See example [Docker Compose file](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/docker-compose.yml).
+See distribution [Docker Compose file](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/docker-compose.dist.yml).
 
 ### Environment
 
 | ENV | Values¹ | Default | Description
 |--- |--- |--- |---
-| TZ | [PHP: List of supported timezones - Manual](https://www.php.net/manual/en/timezones.php) | Europe/Berlin | Timezone.
 | FRX_MAIL_DIR | *Directory path* | /var/customers/mail | Path to the Froxlor customer mails.
 | FRX_DB_HOST | *Hostname / IP* | localhost | Froxlor database hostname or IP
 | FRX_DB_NAME | *Database name* | froxlor | Froxlor database name
@@ -25,19 +26,34 @@ See example [Docker Compose file](https://github.com/bloodhunterd/froxlor-mail-d
 | POSTMASTER_ADDRESS | *Any valid email address* | postmaster@example.com | Postmaster email address
 | CLEANUP_TRASH | 0 - ... | 30 | Time in days after mails in Trash folder will be deleted.
 | CLEANUP_SPAM | 0 - ... | 60 | Time in days after mails in Spam folder will be deleted.
+| TZ | [PHP: List of supported timezones - Manual](https://www.php.net/manual/en/timezones.php) | Europe/Berlin | Timezone
 
-¹ *Possible values are separated by a slash or a range is indicated by a dash.*
+¹ *Possible values are separated by a slash. A range is indicated by a dash.*
 
 ### Volumes
+
+Access to Froxlor mail directory.
 
 ```bash
 volumes:
   - ./mail/:/var/customers/mail/
 ```
 
+Mount mail log.
+
+```bash
+volumes:
+  - ./mail.log:/var/log/mail.log
+```
+
 ## Update
 
 Please note the [changelog](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/CHANGELOG.md) to check for configuration changes before updating.
+
+```bash
+docker-compose pull
+docker-compose up -d
+```
 
 ## Build With
 
@@ -52,4 +68,4 @@ Please note the [changelog](https://github.com/bloodhunterd/froxlor-mail-docker/
 
 ## License
 
-This project is licensed under the Unlicense - see [LICENSE.md](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/LICENSE) file for details.
+This project is licensed under the MIT - see [LICENSE.md](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/LICENSE) file for details.

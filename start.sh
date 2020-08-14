@@ -30,8 +30,6 @@ done
 # Update root alias
 newaliases
 
-service syslog-ng start
-
 service cron start
 
 service dovecot start
@@ -41,4 +39,5 @@ sleep 5
 
 service postfix start
 
-tail -f /var/log/mail.log
+# Keep container running
+tail -f /dev/null
