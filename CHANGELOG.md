@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## <a name="v0-7-1"></a> [0.7.1](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.7.1) - 14.08.2020
+
+* Fix missing mail log
+
 ## <a name="v0-7-0"></a> [0.7.0](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.7.0) - 14.08.2020
 
 * Fix mounting of mail log 

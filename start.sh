@@ -30,6 +30,9 @@ done
 # Update root alias
 newaliases
 
+# Needed for mail log, but without capabilities
+syslog-ng --no-caps
+
 service cron start
 
 service dovecot start
