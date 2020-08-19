@@ -27,20 +27,21 @@ do
 	done
 done
 
+# Prevent syslog logrotate warnings
+sed -i -e 's/\(printerror "could not determine current runlevel"\)/#\1/' /usr/sbin/invoke-rc.d
+sed -i -e 's/^\(POLICYHELPER=\).*/\1/' /usr/sbin/invoke-rc.d
+
 # Update root alias
 newaliases
 
 # Needed for mail log, but without capabilities
 syslog-ng --no-caps
 
-service cron start
+# Needed for Logrotate and Cleanup
+cron
 
-service dovecot start
+# Start Postfix after Dovecot with delay to prevent SASL authentication method error
+dovecot && sleep 5 && postfix start
 
-# Grace time to prevent SASL authentication method error
-sleep 5
-
-service postfix start
-
-# Keep container running
-tail -f /dev/null
+# Keep container running and show mail log
+tail -f /var/log/mail.log

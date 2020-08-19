@@ -26,7 +26,7 @@ See distribution [Docker Compose file](https://github.com/bloodhunterd/froxlor-m
 | POSTMASTER_ADDRESS | *Any valid email address* | postmaster@example.com | Postmaster email address
 | CLEANUP_TRASH | 0 - ... | 30 | Time in days after mails in Trash folder will be deleted.
 | CLEANUP_SPAM | 0 - ... | 60 | Time in days after mails in Spam folder will be deleted.
-| TZ | [PHP: List of supported timezones - Manual](https://www.php.net/manual/en/timezones.php) | Europe/Berlin | Timezone
+| TZ | [PHP: List of supported timezones - Manual](https://www.php.net/manual/en/timezones.php) | Europe/Berlin | Used timezone for date and time calculation.
 
 ¹ *Possible values are separated by a slash. A range is indicated by a dash.*
 
