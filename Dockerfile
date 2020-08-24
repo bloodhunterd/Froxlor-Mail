@@ -44,10 +44,8 @@ RUN apt-get update && \
 
 # Install dependencies
 RUN apt-get install -y --no-install-recommends \
-	apt-utils \
 	cron \
 	gettext-base \
-    logrotate \
     ca-certificates \
     unattended-upgrades \
     apt-listchanges \

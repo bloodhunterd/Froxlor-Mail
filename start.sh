@@ -27,10 +27,6 @@ do
 	done
 done
 
-# Prevent syslog logrotate warnings
-sed -i -e 's/\(printerror "could not determine current runlevel"\)/#\1/' /usr/sbin/invoke-rc.d
-sed -i -e 's/^\(POLICYHELPER=\).*/\1/' /usr/sbin/invoke-rc.d
-
 # Update root alias
 newaliases
 

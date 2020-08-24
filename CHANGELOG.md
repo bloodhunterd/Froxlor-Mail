@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## <a name="v0-7-3"></a> [0.7.3](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.7.3) - 24.08.2020
+
+* Logrotate removed to fix syslog warnings
+* Unneeded apt-utils removed
+
 ## <a name="v0-7-2"></a> [0.7.2](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.7.2) - 19.08.2020
 
 * Fix syslog logrotate warnings

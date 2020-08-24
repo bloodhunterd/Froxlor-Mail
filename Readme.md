@@ -10,7 +10,9 @@ Docker image for Froxlor Mail Server.
 
 ## Configuration
 
-See distribution [Docker Compose file](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/docker-compose.dist.yml).
+Download, rename and adjust the Docker Compose distribution file.
+
+[![Docker Compose](https://img.shields.io/github/size/bloodhunterd/froxlor-mail-docker/docker-compose.dist.yml?label=Docker%20Compose&style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/docker-compose.dist.yml)
 
 ### Environment
 
@@ -39,12 +41,14 @@ volumes:
   - ./mail/:/var/customers/mail/
 ```
 
-Mount mail log.
+Mount mail log².
 
 ```bash
 volumes:
   - ./mail.log:/var/log/mail.log
 ```
+
+² Won't be rotated by default.
 
 ## Update
 
