@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## <a name="v0-7-4"></a> [0.7.4](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.7.4) - 10.09.2020
+
+* Possible DNS problems fixed
+* Froxlor database handling updated
+* Postfix message size limit added as environment variables
+* Environment variables POSTMASTER_ADDRESS and ROOT_ALIAS renamed to POSTMASTER_MAIL and ROOT_MAIL
+
 ## <a name="v0-7-3"></a> [0.7.3](https://github.com/bloodhunterd/froxlor-mail-docker/releases/tag/0.7.3) - 24.08.2020
 
 * Logrotate removed to fix syslog warnings
