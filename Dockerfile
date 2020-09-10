@@ -12,6 +12,7 @@ ENV FRX_DB_PASSWORD ''
 
 # Postfix
 ENV MAIL_DOMAIN 'example.com'
+ENV MESSAGE_SIZE_LIMIT 52428800
 
 # Dovecot
 ENV POSTMASTER_MAIL 'postmaster@example.com'
