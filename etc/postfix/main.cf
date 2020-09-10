@@ -698,7 +698,7 @@ smtpd_client_restrictions = permit_mynetworks,
 smtpd_relay_restrictions =
 
 # Maximum size of Message in bytes (50MB)
-message_size_limit = ${MESSAGE_SIZE}
+message_size_limit = ${MESSAGE_SIZE_LIMIT}
 
 ## SASL Auth Settings
 smtpd_sasl_auth_enable = yes

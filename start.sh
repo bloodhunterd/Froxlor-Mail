@@ -4,6 +4,9 @@
 ln -snf "/usr/share/zoneinfo/${TZ}" etc/localtime
 echo "${TZ}" > /etc/timezone
 
+# Postifx needs a copy to resolve hostnames and domain names
+cp /etc/resolv.conf /var/spool/postfix/etc/
+
 # Get config files
 r=()
 r+=("$(find /etc -type f -name 'aliases')")
@@ -30,14 +33,18 @@ done
 # Update root alias
 newaliases
 
-# Needed for mail log, but without capabilities
+# For mail log, but without capabilities
 syslog-ng --no-caps
 
-# Needed for Logrotate and Cleanup
+# To cleanup SPAM and Trash
 cron
 
-# Start Postfix after Dovecot with delay to prevent SASL authentication method error
-dovecot && sleep 5 && postfix start
+dovecot
+
+# Delay to prevent SASL authentication method error
+sleep 5
+
+postfix start
 
 # Keep container running and show mail log
 tail -f /var/log/mail.log
