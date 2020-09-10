@@ -14,10 +14,10 @@ ENV FRX_DB_PASSWORD ''
 ENV MAIL_DOMAIN 'example.com'
 
 # Dovecot
-ENV POSTMASTER_ADDRESS 'postmaster@example.com'
+ENV POSTMASTER_MAIL 'postmaster@example.com'
 
-# Mail
-ENV ROOT_ALIAS 'root@example.com'
+# Debian
+ENV ROOT_MAIL 'root@example.com'
 
 # Cleanup scripts
 ENV CLEANUP_TRASH 30

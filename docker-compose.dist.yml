@@ -11,8 +11,8 @@ services:
       FRX_DB_USER: froxlor
       FRX_DB_PASSWORD: ''
       MAIL_DOMAIN: example.com
-      POSTMASTER_ADDRESS: postmaster@example.com
-      ROOT_ALIAS: root@example.com
+      POSTMASTER_MAIL: postmaster@example.com
+      ROOT_MAIL: root@example.com
     restart: unless-stopped
     ports:
       - '25:25'

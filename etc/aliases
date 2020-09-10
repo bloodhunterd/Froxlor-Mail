@@ -1,6 +1,5 @@
 # /etc/aliases
 mailer-daemon: postmaster
-postmaster: root
 nobody: root
 hostmaster: root
 usenet: root
@@ -13,4 +12,5 @@ noc: root
 security: root
 
 # change this to a valid e-mail address you can access
-root: ${ROOT_ALIAS}
+postmaster: ${POSTMASTER_MAIL}
+root: ${ROOT_MAIL}
