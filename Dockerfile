@@ -48,40 +48,33 @@ EXPOSE 4190
 # Base packages
 # ===================================================
 
-# Pre-seeding for Postfix installation
-RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections && \
-	echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections
-
-# Update sources and preinstalled packages
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends
 
-# Install dependencies
 RUN apt-get install -y --no-install-recommends \
-	cron \
-	gettext-base \
-    ca-certificates \
-    unattended-upgrades \
     apt-listchanges \
+    apt-transport-https \
+    ca-certificates \
+	gettext-base \
+    unattended-upgrades \
     syslog-ng
 
 # ===================================================
 # Postfix
 # ===================================================
 
+# Pre-seeding for Postfix installation
+RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections && \
+	echo "postfix postfix/main_mailer_type string 'No configuration'" | debconf-set-selections
+
 RUN apt-get install -y --no-install-recommends \
     postfix \
     postfix-mysql
-
-# Configure Postfix
-COPY ./etc/postfix /etc/postfix/
-COPY ./etc/aliases /etc/aliases
 
 # ===================================================
 # Dovecot
 # ===================================================
 
-# Install Dovecot
 RUN apt-get install -y --no-install-recommends \
     dovecot-mysql \
     dovecot-imapd \
@@ -91,34 +84,47 @@ RUN apt-get install -y --no-install-recommends \
     libsasl2-modules \
     sasl2-bin
 
-# Configure Dovecot
-COPY ./etc/dovecot /etc/dovecot/
+# Create Sieve folder
+RUN mkdir -p ${FRX_MAIL_DIR}/.sieve/.before
+
+# ===================================================
+# Postfix & Dovecot configuration
+# ===================================================
 
 # Create mail user and group
 RUN groupadd -g 2000 vmail && \
     useradd -u 2000 -g vmail vmail
 
-# Create Sieve folder
-RUN mkdir -p ${FRX_MAIL_DIR}/.sieve/.before
-
-# Configure Sieve
-COPY .${FRX_MAIL_DIR}/.sieve/.before ${FRX_MAIL_DIR}/.sieve/.before/
-
 # Set rights
 RUN chown -R 2000:2000 ${FRX_MAIL_DIR} && \
 	chmod -R 0750 ${FRX_MAIL_DIR}
 
-# Install SpamAssassin client
+# ===================================================
+# SpamAssassin
+# ===================================================
+
 RUN apt-get install -y --no-install-recommends \
     spamc
 
-# Create SpamAssassin user and group
+# Create user and group
 RUN groupadd debian-spamd && \
     useradd -g debian-spamd debian-spamd
 
-# Add Spam and Trash cleanup scripts
-COPY ./etc/cron.d /etc/cron.d/
+# ===================================================
+# Trash & Spam cleanup
+# ===================================================
 
-COPY ./start.sh /start.sh
+RUN apt-get install -y --no-install-recommends \
+	cron
+
+# ===================================================
+# Filesystem
+# ===================================================
+
+COPY ./src/ /
+
+# ===================================================
+# Entrypoint
+# ===================================================
 
 ENTRYPOINT ["bash", "/start.sh"]
