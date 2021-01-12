@@ -1,0 +1,29 @@
+name: Docker
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-dev'
+      - '[0-9]+.[0-9]+.[0-9]+-beta'
+      - 'latest'
+
+jobs:
+  docker:
+    name: Docker
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          repository: bloodhunterd/froxlor-mail
+          tag_with_ref: true

@@ -1,23 +1,53 @@
-[![Release](https://img.shields.io/github/v/release/bloodhunterd/froxlor-mail-docker?include_prereleases&style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/releases)
-[![Docker Build](https://img.shields.io/docker/cloud/build/bloodhunterd/froxlor-mail?style=for-the-badge)](https://hub.docker.com/r/bloodhunterd/froxlor-mail)
+[![Release](https://img.shields.io/github/v/release/bloodhunterd/froxlor-mail-docker?style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/releases)
+[![Docker Build](https://img.shields.io/github/workflow/status/bloodhunterd/froxlor-mail-docker/Docker?style=for-the-badge&label=Docker%20Build)](https://github.com/bloodhunterd/backup/actions?query=workflow%3ADocker)
+[![Docker Pulls](https://img.shields.io/docker/pulls/bloodhunterd/froxlor-mail?style=for-the-badge)](https://hub.docker.com/r/bloodhunterd/froxlor-mail)
 [![License](https://img.shields.io/github/license/bloodhunterd/froxlor-mail-docker?style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/LICENSE)
 
-# Froxlor Mail
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/bloodhunterd)
 
-Docker image for Froxlor Mail Server.
+# Froxlor Mail Docker
+
+Docker image of Postfix and Dovecot for Froxlor Server Management Panel.
 
 *This image is meant to be used with the [Froxlor Docker](https://github.com/bloodhunterd/froxlor-docker) image.*
 
-## Configuration
+## Deployment
 
-Download, rename and adjust the Docker Compose distribution file.
+### Docker Compose
 
-[![Docker Compose](https://img.shields.io/github/size/bloodhunterd/froxlor-mail-docker/docker-compose.dist.yml?label=Docker%20Compose&style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/docker-compose.dist.yml)
+```dockerfile
+version: '2.4'
 
-### Environment
+services:
+  mail:
+    image: bloodhunterd/froxlor-mail
+    environment:
+      TZ: 'Europe/Berlin'
+      FRX_MAIL_DIR: '/var/customers/mail'
+      FRX_DB_HOST: 'localhost'
+      FRX_DB_NAME: 'froxlor'
+      FRX_DB_USER: 'froxlor'
+      FRX_DB_PASSWORD: '+V3ryS3cr3tP4ssw0rd#'
+      MAIL_DOMAIN: 'example.com'
+      POSTMASTER_MAIL: 'postmaster@example.com'
+      ROOT_MAIL: 'root@example.com'
+    restart: unless-stopped
+    ports:
+      - '25:25'
+      - '110:110'
+      - '143:143'
+      - '465:465'
+      - '993:993'
+      - '995:995'
+      - '4190:4190'
+    volumes:
+      - ./mail:/var/customers/mail/
+```
 
-| ENV | Values¹ | Default | Description
-|--- |--- |--- |---
+### Configuration
+
+| ENV | Values | Default | Description
+| --- | ------- | ------- | -----------
 | FRX_MAIL_DIR | *Directory path* | /var/customers/mail | Path to the Froxlor customer mails.
 | FRX_DB_HOST | *Hostname / IP* | localhost | Froxlor database hostname or IP
 | FRX_DB_NAME | *Database name* | froxlor | Froxlor database name
@@ -30,25 +60,27 @@ Download, rename and adjust the Docker Compose distribution file.
 | CLEANUP_SPAM | 0 - ... | 60 | Time in days after mails in Spam folder will be deleted.
 | TZ | [PHP: List of supported timezones - Manual](https://www.php.net/manual/en/timezones.php) | Europe/Berlin | Used timezone for date and time calculation.
 
-¹ *Possible values are separated by a slash. A range is indicated by a dash.*
+### Ports
+
+| Port | Description
+| ---: | -----------
+| 25 | SMTP
+| 110 | POP
+| 143 | IMAP
+| 465 | SMTPS
+| 993 | POPS
+| 995 | IMAPS
+| 4190 | Sieve
 
 ### Volumes
 
-Access to Froxlor mail directory.
+| Volume | Path | Read only | Description
+| ------ | ---- | :-------: | -----------
+| Customer mail | /var/customers/mail/ | &#10008; | Froxlor customer mail content.
+| Mail log | /var/log/mail.log | &#10008; | Mail log. *Won't be rotated by default.*
 
-```bash
-volumes:
-  - ./mail/:/var/customers/mail/
-```
-
-Mount mail log².
-
-```bash
-volumes:
-  - ./mail.log:/var/log/mail.log
-```
-
-² Won't be rotated by default.
+| &#10004; Yes | &#10008; No
+| ------------ | -----------
 
 ## Update
 
