@@ -4,9 +4,6 @@
 ln -snf "/usr/share/zoneinfo/${TZ}" etc/localtime
 echo "${TZ}" > /etc/timezone
 
-# Postifx needs a copy to resolve hostnames and domain names
-cp /etc/resolv.conf /var/spool/postfix/etc/
-
 # Get config files
 r=()
 r+=("$(find /etc -type f -name 'aliases')")
@@ -36,15 +33,12 @@ newaliases
 # For mail log, but without capabilities
 syslog-ng --no-caps
 
-# To cleanup SPAM and Trash
-cron
+postfix start
 
 dovecot
 
-# Delay to prevent SASL authentication method error
-sleep 5
-
-postfix start
+# To cleanup SPAM and Trash
+cron
 
 # Keep container running and show mail log
 tail -f /var/log/mail.log

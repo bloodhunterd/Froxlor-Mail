@@ -276,7 +276,7 @@ unknown_local_recipient_reject_code = 550
 #mynetworks = 168.100.189.0/28, 127.0.0.0/8
 #mynetworks = $config_directory/mynetworks
 #mynetworks = hash:/etc/postfix/network_table
-mynetworks = 127.0.0.0/8
+mynetworks = ${MY_NETWORKS}
 
 # The relay_domains parameter restricts what destinations this system will
 # relay mail to.  See the smtpd_recipient_restrictions description in
@@ -678,32 +678,36 @@ inet_protocols = ipv4
 append_dot_mydomain = no
 biff = no
 smtpd_helo_required = yes
-smtpd_recipient_restrictions = permit_mynetworks,
-	permit_sasl_authenticated,
-	reject_unauth_destination,
-	reject_unauth_pipelining,
-	reject_non_fqdn_recipient
-smtpd_sender_restrictions = permit_mynetworks,
-	reject_sender_login_mismatch,
-	permit_sasl_authenticated,
-	reject_unknown_helo_hostname,
-	reject_unknown_recipient_domain,
-	reject_unknown_sender_domain
-smtpd_client_restrictions = permit_mynetworks,
-	permit_sasl_authenticated,
-	reject_unknown_client_hostname
-
-# Postfix 2.10 requires this option. Postfix < 2.10 ignores this.
-# The option is intentionally left empty.
 smtpd_relay_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination,
+    reject_unauth_pipelining,
+    reject_non_fqdn_recipient
+smtpd_client_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unknown_client_hostname
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination,
+    reject_unauth_pipelining,
+    reject_non_fqdn_recipient
+smtpd_sender_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_sender_login_mismatch,
+    reject_unknown_helo_hostname,
+    reject_unknown_sender_domain,
+    reject_unknown_recipient_domain
 
-# Maximum size of Message in bytes (50MB)
+# Maximum size of Message in bytes
 message_size_limit = ${MESSAGE_SIZE_LIMIT}
 
 ## SASL Auth Settings
 smtpd_sasl_auth_enable = yes
 smtpd_sasl_local_domain = $myhostname
-broken_sasl_auth_clients = yes
 ## Dovecot Settings for deliver, SASL Auth and virtual transport
 smtpd_sasl_type = dovecot
 virtual_transport = dovecot

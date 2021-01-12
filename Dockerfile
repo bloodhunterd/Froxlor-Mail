@@ -1,6 +1,10 @@
 FROM debian:stable-slim
 
-# Time
+# ===================================================
+# Configuration
+# ===================================================
+
+# System
 ENV TZ 'Europe/Berlin'
 
 # Froxlor
@@ -10,30 +14,39 @@ ENV FRX_DB_NAME 'froxlor'
 ENV FRX_DB_USER 'froxlor'
 ENV FRX_DB_PASSWORD ''
 
-# Postfix
+# Postfix/Dovecot
 ENV MAIL_DOMAIN 'example.com'
 ENV MESSAGE_SIZE_LIMIT 52428800
-
-# Dovecot
+ENV MY_NETWORKS '127.0.0.0/8'
 ENV POSTMASTER_MAIL 'postmaster@example.com'
-
-# Debian
 ENV ROOT_MAIL 'root@example.com'
 
-# Cleanup scripts
+# Mailbox cleanup
 ENV CLEANUP_TRASH 30
 ENV CLEANUP_SPAM 60
 
-# Postfix
+# ===================================================
+# Ports
+# ===================================================
+
+# SMTP
 EXPOSE 25
+# SMTPS
 EXPOSE 465
-# Dovecot
+# POP
 EXPOSE 110
+# IMAP
 EXPOSE 143
+# POPS
 EXPOSE 993
+# IMAPS
 EXPOSE 995
-# Dovecot Sieve
+# Sieve
 EXPOSE 4190
+
+# ===================================================
+# Base packages
+# ===================================================
 
 # Pre-seeding for Postfix installation
 RUN echo "postfix postfix/mailname string mail.example.com" | debconf-set-selections && \
@@ -52,7 +65,10 @@ RUN apt-get install -y --no-install-recommends \
     apt-listchanges \
     syslog-ng
 
-# Install Postfix
+# ===================================================
+# Postfix
+# ===================================================
+
 RUN apt-get install -y --no-install-recommends \
     postfix \
     postfix-mysql
@@ -61,13 +77,19 @@ RUN apt-get install -y --no-install-recommends \
 COPY ./etc/postfix /etc/postfix/
 COPY ./etc/aliases /etc/aliases
 
+# ===================================================
+# Dovecot
+# ===================================================
+
 # Install Dovecot
 RUN apt-get install -y --no-install-recommends \
     dovecot-mysql \
     dovecot-imapd \
     dovecot-pop3d \
     dovecot-sieve \
-    dovecot-managesieved
+    dovecot-managesieved \
+    libsasl2-modules \
+    sasl2-bin
 
 # Configure Dovecot
 COPY ./etc/dovecot /etc/dovecot/
@@ -76,10 +98,8 @@ COPY ./etc/dovecot /etc/dovecot/
 RUN groupadd -g 2000 vmail && \
     useradd -u 2000 -g vmail vmail
 
-# Create folders
-RUN mkdir -p ${FRX_MAIL_DIR}/.sieve/.before && \
-    mkdir -p /var/spool/postfix/etc/pam.d && \
-	mkdir -p /var/spool/postfix/var/run/mysqld
+# Create Sieve folder
+RUN mkdir -p ${FRX_MAIL_DIR}/.sieve/.before
 
 # Configure Sieve
 COPY .${FRX_MAIL_DIR}/.sieve/.before ${FRX_MAIL_DIR}/.sieve/.before/
