@@ -4,9 +4,8 @@ on:
   push:
     tags:
       - '[0-9]+.[0-9]+.[0-9]+'
-      - '[0-9]+.[0-9]+.[0-9]+-dev'
-      - '[0-9]+.[0-9]+.[0-9]+-beta'
-      - 'latest'
+      - '[0-9]+.[0-9]+.[0-9]+-dev-[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-beta-[0-9]+'
 
 jobs:
   docker:
@@ -27,3 +26,14 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
           repository: bloodhunterd/froxlor-mail
           tag_with_ref: true
+
+      - name: Build and push Docker image
+        if: (contains(env.VERSION, '-beta') || contains(env.VERSION, '-dev')) != true
+        uses: docker/build-push-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          repository: bloodhunterd/froxlor-mail
+          tags: latest
