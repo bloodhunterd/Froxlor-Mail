@@ -1,7 +1,7 @@
-[![Release](https://img.shields.io/github/v/release/bloodhunterd/froxlor-mail-docker?style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/releases)
-[![Docker Build](https://img.shields.io/github/workflow/status/bloodhunterd/froxlor-mail-docker/Docker?style=for-the-badge&label=Docker%20Build)](https://github.com/bloodhunterd/backup/actions?query=workflow%3ADocker)
+[![Release](https://img.shields.io/github/v/release/bloodhunterd/froxlor-mail?style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail/releases)
+[![Docker Build](https://img.shields.io/github/workflow/status/bloodhunterd/froxlor-mail/Docker?style=for-the-badge&label=Docker%20Build)](https://github.com/bloodhunterd/backup/actions?query=workflow%3ADocker)
 [![Docker Pulls](https://img.shields.io/docker/pulls/bloodhunterd/froxlor-mail?style=for-the-badge)](https://hub.docker.com/r/bloodhunterd/froxlor-mail)
-[![License](https://img.shields.io/github/license/bloodhunterd/froxlor-mail-docker?style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/bloodhunterd/froxlor-mail?style=for-the-badge)](https://github.com/bloodhunterd/froxlor-mail/blob/master/LICENSE)
 
 [![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/bloodhunterd)
 
@@ -9,7 +9,7 @@
 
 Docker image of Postfix and Dovecot for Froxlor Server Management Panel.
 
-*This image is meant to be used with the [Froxlor Docker](https://github.com/bloodhunterd/froxlor-docker) image.*
+*This image is meant to be used with the [Froxlor](https://github.com/bloodhunterd/froxlor) image.*
 
 ## Deployment
 
@@ -84,7 +84,7 @@ services:
 
 ## Update
 
-Please note the [changelog](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/CHANGELOG.md) to check for configuration changes before updating.
+Please note the [changelog](https://github.com/bloodhunterd/froxlor-mail/blob/master/CHANGELOG.md) to check for configuration changes before updating.
 
 ```bash
 docker-compose pull
@@ -104,4 +104,4 @@ docker-compose up -d
 
 ## License
 
-This project is licensed under the MIT - see [LICENSE.md](https://github.com/bloodhunterd/froxlor-mail-docker/blob/master/LICENSE) file for details.
+This project is licensed under the MIT - see [LICENSE.md](https://github.com/bloodhunterd/froxlor-mail/blob/master/LICENSE) file for details.
