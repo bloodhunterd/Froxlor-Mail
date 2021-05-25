@@ -136,3 +136,5 @@ dovecot	  unix	-	n	n	-	-	pipe
 #	flags=DRhu user=vmail:vmail argv=/usr/bin/spamc -e /usr/lib/dovecot/deliver -d ${recipient}
 #spamassassin	unix	-	n	n	-	-	pipe
 #	user=vmail argv=/usr/bin/spamc -d spamassassin-container-name -f -e /usr/sbin/sendmail -oi -f ${sender} ${recipient}
+# Loggin to STDOUT
+postlog   unix-dgram n  -       n       -       1       postlogd

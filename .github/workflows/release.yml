@@ -31,6 +31,6 @@ jobs:
           release_name: ${{ env.VERSION }}
           tag_name: ${{ env.VERSION }}
           body: |
-            See [changelog](${{ env.SERVER_URL }}/${{ env.REPOSITORY }}/blob/master/CHANGELOG.md#${{ env.VERSION }}).
+            See [changelog](${{ env.SERVER_URL }}/${{ env.REPOSITORY }}/blob/master/CHANGELOG.md#v${{ env.VERSION }}).
           draft: false
           prerelease: ${{ contains(env.VERSION, '-beta') || contains(env.VERSION, '-dev') }}

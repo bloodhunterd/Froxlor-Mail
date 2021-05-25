@@ -27,18 +27,12 @@ do
 	done
 done
 
-# Update root alias
+# Update mail aliases
 newaliases
 
-# For mail log, but without capabilities
-syslog-ng --no-caps
-
-postfix start
+# Auto-cleanup SPAM and Trash folder
+cron
 
 dovecot
 
-# To cleanup SPAM and Trash
-cron
-
-# Keep container running and show mail log
-tail -f /var/log/mail.log
+postfix start-fg
