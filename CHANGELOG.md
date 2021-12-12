@@ -2,6 +2,13 @@
 
 All notable changes will be documented in this file.
 
+<a name="v0.9.0"></a>
+## [0.9.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.9.0) &#9839; 12.12.2021
+
+* Updated **Debian** version to 11 (*bullseye*)
+* Updated **Postfix** version to 3.5.6
+* Updated **Dovecot** version to 2.3.13
+
 <a name="v0.8.0"></a>
 ## [0.8.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.8.0) &#9839; 25.05.2021
 

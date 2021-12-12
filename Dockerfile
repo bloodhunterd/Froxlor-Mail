@@ -22,8 +22,8 @@ ENV POSTMASTER_MAIL 'postmaster@example.com'
 ENV ROOT_MAIL 'root@example.com'
 
 # Mailbox cleanup
-ENV CLEANUP_TRASH 30
-ENV CLEANUP_SPAM 60
+ENV CLEANUP_TRASH 7
+ENV CLEANUP_SPAM 14
 
 # ===================================================
 # Ports
