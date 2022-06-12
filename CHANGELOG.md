@@ -2,6 +2,11 @@
 
 All notable changes will be documented in this file.
 
+<a name="v0.10.0"></a>
+## [0.10.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.10.0) &#9839; 12.06.2022
+
+* Updated **MariaDB** version to 10.8.3
+
 <a name="v0.9.0"></a>
 ## [0.9.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.9.0) &#9839; 12.12.2021
 
