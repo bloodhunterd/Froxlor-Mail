@@ -46,37 +46,37 @@ services:
 
 ### Configuration
 
-| ENV | Values | Default | Description
-| --- | ------- | ------- | -----------
-| FRX_MAIL_DIR | `DIRECTORY PATH` | /var/customers/mail | Path to the Froxlor customer mails.
-| FRX_DB_HOST | `HOSTNAME` \| `IP` | localhost | Froxlor database hostname or IP
-| FRX_DB_NAME | `DATABASE NAME` | froxlor | Froxlor database name
-| FRX_DB_USER | `DATABASE USER` | froxlor | Froxlor database user
-| FRX_DB_PASSWORD | `DATABSE PASSEWORD` |  | Froxlor database user password
-| ROOT_MAIL | `EMAIL` | root@example.com | Email address alias for internal mails to the root user.
-| MAIL_DOMAIN | `FQDN` | example.com | Mail domain
-| POSTMASTER_MAIL | `EMAIL` | postmaster@example.com | Postmaster email address
-| CLEANUP_TRASH | `INTEGER` | 30 | Time in days after mails in Trash folder will be deleted.
-| CLEANUP_SPAM | `INTEGER` | 60 | Time in days after mails in Spam folder will be deleted.
-| TZ | [PHP: List of supported timezones - Manual](https://www.php.net/manual/en/timezones.php) | Europe/Berlin | Used timezone for date and time calculation.
+| ENV             | Values                                                                                   | Default                | Description                                               |
+|-----------------|------------------------------------------------------------------------------------------|------------------------|-----------------------------------------------------------|
+| FRX_MAIL_DIR    | `DIRECTORY PATH`                                                                         | /var/customers/mail    | Path to the Froxlor customer mails.                       |
+| FRX_DB_HOST     | `HOSTNAME` \                                                                             | `IP`                   | localhost                                                 | Froxlor database hostname or IP
+| FRX_DB_NAME     | `DATABASE NAME`                                                                          | froxlor                | Froxlor database name                                     |
+| FRX_DB_USER     | `DATABASE USER`                                                                          | froxlor                | Froxlor database user                                     |
+| FRX_DB_PASSWORD | `DATABSE PASSEWORD`                                                                      |                        | Froxlor database user password                            |
+| ROOT_MAIL       | `EMAIL`                                                                                  | root@example.com       | Email address alias for internal mails to the root user.  |
+| MAIL_DOMAIN     | `FQDN`                                                                                   | example.com            | Mail domain                                               |
+| POSTMASTER_MAIL | `EMAIL`                                                                                  | postmaster@example.com | Postmaster email address                                  |
+| CLEANUP_TRASH   | `INTEGER`                                                                                | 30                     | Time in days after mails in Trash folder will be deleted. |
+| CLEANUP_SPAM    | `INTEGER`                                                                                | 60                     | Time in days after mails in Spam folder will be deleted.  |
+| TZ              | [PHP: List of supported timezones - Manual](https://www.php.net/manual/en/timezones.php) | Europe/Berlin          | Used timezone for date and time calculation.              |
 
 ### Ports
 
-| Port | Protocol | Description
-| ---: | -------- | -----------
-| 25 | `SMTP` | Receive encrypted and unencrypted emails. A TLS certificate may be required.
-| 110 | `POP` | Used to receive emails. The emails are downloaded locally.
-| 143 | `IMAP` | Used to receive emails. The e-mails remain on the server.
-| 465 | `SMTPS` | Encrypted **ONLY** version of `SMTP`.
-| 993 | `POPS` | Encrypted version of `POP`. A TLS certificate is required.
-| 995 | `IMAPS` | Encrypted version of `IMAP`. A TLS certificate is required.
-| 4190 | `Sieve` | Service for managing rules for receiving and storing e-mails.
+| Port | Protocol | Description                                                                  |
+|-----:|----------|------------------------------------------------------------------------------|
+|   25 | `SMTP`   | Receive encrypted and unencrypted emails. A TLS certificate may be required. |
+|  110 | `POP`    | Used to receive emails. The emails are downloaded locally.                   |
+|  143 | `IMAP`   | Used to receive emails. The e-mails remain on the server.                    |
+|  465 | `SMTPS`  | Encrypted **ONLY** version of `SMTP`.                                        |
+|  993 | `POPS`   | Encrypted version of `POP`. A TLS certificate is required.                   |
+|  995 | `IMAPS`  | Encrypted version of `IMAP`. A TLS certificate is required.                  |
+| 4190 | `Sieve`  | Service for managing rules for receiving and storing e-mails.                |
 
 ### Volumes
 
-| Volume | Path | Read only | Description
-| ------ | ---- | :-------: | -----------
-| Customer mail | /var/customers/mail/ | &#10006; | Froxlor customer mail content.
+| Volume        | Path                 | Read only | Description                    |
+|---------------|----------------------|:---------:|--------------------------------|
+| Customer mail | /var/customers/mail/ | &#10006;  | Froxlor customer mail content. |
 
 ## Update
 
