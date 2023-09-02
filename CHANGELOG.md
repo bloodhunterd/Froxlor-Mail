@@ -2,23 +2,36 @@
 
 All notable changes will be documented in this file.
 
+<a name="v0.12.0"></a>
+## [0.12.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.12.0) &#9839; 03.09.2023
+
+* Update **Debian** version to **11.7**
+* Update **MariaDB** version to **10.11.5**
+* Update **Postfix** version to **3.5.18**
+
 <a name="v0.11.0"></a>
 ## [0.11.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.11.0) &#9839; 12.10.2022
 
-* Updated **MariaDB** version to 10.9.3
-* Updated **Postfix** version to 3.5.13
+* Update **MariaDB** version to **10.9.3**
+* Update **Postfix** version to **3.5.13**
+
+<a name="v0.11.0"></a>
+## [0.11.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.11.0) &#9839; 12.10.2022
+
+* Update **MariaDB** version to **10.9.3**
+* Update **Postfix** version to **3.5.13**
 
 <a name="v0.10.0"></a>
 ## [0.10.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.10.0) &#9839; 12.06.2022
 
-* Updated **MariaDB** version to 10.8.3
+* Update **MariaDB** version to **10.8.3**
 
 <a name="v0.9.0"></a>
 ## [0.9.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.9.0) &#9839; 12.12.2021
 
-* Updated **Debian** version to 11 (*bullseye*)
-* Updated **Postfix** version to 3.5.6
-* Updated **Dovecot** version to 2.3.13
+* Update **Debian** version to **11.0** (*bullseye*)
+* Update **Postfix** version to **3.5.6**
+* Update **Dovecot** version to **2.3.13**
 
 <a name="v0.8.0"></a>
 ## [0.8.0](https://github.com/bloodhunterd/froxlor-mail/releases/tag/0.8.0) &#9839; 25.05.2021
